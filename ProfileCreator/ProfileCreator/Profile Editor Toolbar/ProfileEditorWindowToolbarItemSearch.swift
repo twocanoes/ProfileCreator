@@ -20,17 +20,6 @@ class ProfileEditorWindowToolbarItemSearch: NSObject {
     var selectedPayloadPlaceholder: PayloadPlaceholder?
     var toolbarItem: NSToolbarItem?
 
-//    // Items for the `toolbarItemAdd`
-//    let addItemContextualMenu: NSMenu = {
-//        let menu = NSMenu(title: "")
-//
-//        let menuAddPayload = NSMenuItem(title: "Add Payload", action: #selector(addPayload), keyEquivalent: "")
-//        let menuAddPayloadKey = NSMenuItem(title: "Add Payload Key", action: #selector(addPayloadKey), keyEquivalent: "")
-//
-//        menu.items = [menuAddPayload, menuAddPayloadKey]
-//        return menu
-//    }()
-
     // MARK: -
     // MARK: Initialization
 
