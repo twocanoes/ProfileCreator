@@ -26,6 +26,7 @@ class ProfileEditor: NSObject {
     let outlineView: ProfileEditorOutlineView
     let outlineViewController = ProfileEditorOutlineViewController()
 
+    var filterString:String?
     var testObserver: Any?
 
     var constraintsTabView = [NSLayoutConstraint]()
@@ -209,7 +210,7 @@ class ProfileEditor: NSObject {
 
     func reloadTableView(updateCellViews: Bool = false) {
         if updateCellViews, let selectedPayloadPlaceholder = self.selectedPayloadPlaceholder {
-            self.cellViews = self.payloadCellViews.cellViews(payloadPlaceholder: selectedPayloadPlaceholder, payloadIndex: self.selectedPayloadIndex, profileEditor: self)
+            self.cellViews = self.payloadCellViews.cellViews(payloadPlaceholder: selectedPayloadPlaceholder, payloadIndex: self.selectedPayloadIndex, profileEditor: self, filterString: self.filterString)
         }
         self.tableView.beginUpdates()
         self.tableView.reloadData()

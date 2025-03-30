@@ -21,6 +21,7 @@ public class ProfileEditorWindowController: NSWindowController {
                                                               .adaptiveSpace,
                                                               .editorTitle,
                                                               NSToolbarItem.Identifier.flexibleSpace,
+                                                              .editorSearch,
                                                               .editorSettings,
                                                               .editorView]
 
@@ -29,6 +30,7 @@ public class ProfileEditorWindowController: NSWindowController {
 
     var toolbarItemAdaptiveSpace = AdaptiveSpaceItem()
     var toolbarItemAdd: ProfileEditorWindowToolbarItemAdd?
+    var toolbarItemSearch: ProfileEditorWindowToolbarItemSearch?
     var toolbarItemExport: ProfileEditorWindowToolbarItemExport?
     var toolbarItemTitle: ProfileEditorWindowToolbarItemTitle?
     var toolbarItemSettings: ProfileEditorWindowToolbarItemSettings?
@@ -178,6 +180,14 @@ extension ProfileEditorWindowController: NSToolbarDelegate {
         switch identifier {
         case .adaptiveSpace:
             return self.toolbarItemAdaptiveSpace
+
+        case .editorSearch:
+            if self.toolbarItemSearch == nil, let profileEditor = self.splitView.editor {
+                self.toolbarItemSearch = ProfileEditorWindowToolbarItemSearch(profile: self.profile, editor: profileEditor)
+            }
+
+            return self.toolbarItemSearch?.toolbarItem
+
         case .editorAdd:
             if self.toolbarItemAdd == nil, let profileEditor = self.splitView.editor {
                 self.toolbarItemAdd = ProfileEditorWindowToolbarItemAdd(profile: self.profile, editor: profileEditor)

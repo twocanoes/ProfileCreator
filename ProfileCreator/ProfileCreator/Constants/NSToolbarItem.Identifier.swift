@@ -11,6 +11,7 @@ import Cocoa
 extension NSToolbarItem.Identifier {
     static let adaptiveSpace = NSToolbarItem.Identifier("adaptiveSpace")
     static let editorAdd = NSToolbarItem.Identifier("editorAdd")
+    static let editorSearch = NSToolbarItem.Identifier("editorSearch")
     static let editorExport = NSToolbarItem.Identifier("editorExport")
     static let editorTitle = NSToolbarItem.Identifier("editorTitle")
     static let editorSettings = NSToolbarItem.Identifier("editorSettings")

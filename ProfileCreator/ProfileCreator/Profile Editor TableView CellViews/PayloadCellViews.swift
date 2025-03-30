@@ -16,7 +16,7 @@ class PayloadCellViews {
     // FIXME: Currently nothing is cached.
     var allCellViews = [String: [NSTableCellView]]()
 
-    func cellViews(payloadPlaceholder: PayloadPlaceholder, payloadIndex: Int, profileEditor: ProfileEditor) -> [NSTableCellView] {
+    func cellViews(payloadPlaceholder: PayloadPlaceholder, payloadIndex: Int, profileEditor: ProfileEditor, filterString:String? = nil) -> [NSTableCellView] {
 
         // ---------------------------------------------------------------------
         //  Initialize variables
@@ -43,7 +43,8 @@ class PayloadCellViews {
                           payloadIndex: payloadIndex,
                           profileEditor: profileEditor,
                           parentCellViews: nil,
-                          cellViews: &cellViews)
+                          cellViews: &cellViews,
+                          filterString: filterString)
 
         // ---------------------------------------------------------------------
         //  Verify we got an array of PayloadCellViews
@@ -237,13 +238,18 @@ class PayloadCellViews {
                       payloadIndex: Int,
                       profileEditor: ProfileEditor,
                       parentCellViews: [PayloadCellView]?,
-                      cellViews: inout [NSTableCellView] ) {
+                      cellViews: inout [NSTableCellView],
+                      filterString: String? = nil) {
 
         var selectedSegmentKeys = [String]()
         var selectedSegmentKeysIgnored = [String]()
 
         for subkey in subkeys {
-
+            
+            if let filterString = filterString,
+               subkey.dictionary.description.lowercased().contains(filterString.lowercased()) == false {
+                continue
+            }
             // If any parent is an array, this should not be added by itself, but from the array subkey cellview
             if let parentSubkeys = subkey.parentSubkeys, parentSubkeys.contains(where: { $0.type == .array && $0.rangeMax as? Int != 1 }) { continue }
 
@@ -309,7 +315,8 @@ class PayloadCellViews {
                                   // typeSettings: typeSettings,
                                   profileEditor: profileEditor,
                                   parentCellViews: pCellViews,
-                                  cellViews: &cellViews)
+                                  cellViews: &cellViews,
+                                  filterString: filterString)
             }
         }
     }
